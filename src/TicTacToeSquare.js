@@ -14,7 +14,7 @@ function TicTacToeSquare(props) {
       );
 }
 
-Square.propTypes = {
+TicTacToeSquare.propTypes = {
       character: PropTypes.string,
       handleClick: PropTypes.func.isRequired,
       id: PropTypes.number.isRequired,

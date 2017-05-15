@@ -11,7 +11,7 @@ function TicTacToeReplayButton(props) {
       );
 }
 
-ReplayButton.propTypes = {
+TicTacToeReplayButton.propTypes = {
       handleReplay: PropTypes.func.isRequired
 }
 
