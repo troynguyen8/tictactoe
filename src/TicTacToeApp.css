@@ -30,3 +30,7 @@
 .square0, .square1, .square2, .square3, .square4, .square5 {
       border-right: 1px solid black;
 }
+
+.player-turn, .win-message, .tie-message {
+      margin-top: 2%;
+}
