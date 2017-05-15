@@ -45,19 +45,13 @@ class TicTacToeApp extends Component {
                         if(char1 && char2 && char3) {
                               if(char1 === char2 && char1 === char3 && char2 === char3) {
                                     this.setState({win: true});
-                                    return true;
                               }
                         }
-
-                        return false;
                   });
             }
 
             this.checkTie = () => {
-                  var tie = this.state.board.every( (square) => square.character !== '')
-                  this.setState({tie: tie});
-
-                  return tie;
+                  this.setState({tie: this.state.board.every( (square) => square.character !== '')});
             }
 
             this.handleClick = (key) => {
@@ -67,13 +61,14 @@ class TicTacToeApp extends Component {
 
                   this.setState({board: tempArr});
 
-                  if(!(this.calculateWin() || this.checkTie())) {
-                        this.setState((prevState) => {
-                              return {
-                                    playerTurn: (prevState.playerTurn === 'X') ? 'O' : 'X'
-                              }
-                        });
-                  }
+                  this.setState((prevState) => {
+                        return {
+                              playerTurn: (prevState.playerTurn === 'X') ? 'O' : 'X'
+                        }
+                  });
+                  
+                  this.calculateWin();
+                  this.checkTie();
             }
 
             this.renderSquare = (square) => {
@@ -134,11 +129,11 @@ class TicTacToeApp extends Component {
                         {this.renderRows( this.state.board.map((square) => this.renderSquare(square)) )}
 
                         <div className="player-turn">
-                              {(this.state.playerTurn === 'X') ? 'Player Turn: X' : 'Player Turn: O'}
+                              {!(this.state.tie || this.state.win) ? `Player Turn: ${this.state.playerTurn}` : ''}
                         </div>
 
                         <div className="win-message">
-                              {(this.state.win) ? `Player ${this.state.playerTurn} is the winner!` : ''}
+                              {(this.state.win) ? `Player ${(this.state.playerTurn === 'X') ? 'O' : 'X'} is the winner!` : ''}
                         </div>
 
                         <div className="tie-message">
