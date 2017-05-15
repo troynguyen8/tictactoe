@@ -42,13 +42,18 @@ class TicTacToeApp extends Component {
 
                         if(char && char === this.state.board[winCase[1]].character && char === this.state.board[winCase[2]].character) {
                               this.setState({win: true});
-                              return;
+                              return true;
                         }
+
+                        return false;
                   });
             }
 
             this.checkTie = () => {
-                  this.setState({tie: this.state.board.every( (square) => square.character !== '') });
+                  var tie = this.state.board.every( (square) => square.character !== '')
+                  this.setState({tie: tie});
+
+                  return tie;
             }
 
             this.handleClick = (key) => {
@@ -56,15 +61,14 @@ class TicTacToeApp extends Component {
 
                   tempArr[key].character = this.state.playerTurn;
 
-                  this.setState((prevState) => {
-                        return {
-                              board: tempArr,
-                              playerTurn: (prevState.playerTurn === 'X') ? 'O' : 'X'
-                        }
-                  });
-
-                  this.calculateWin();
-                  this.checkTie();
+                  if(!this.calculateWin() && !this.checkTie()) {
+                        this.setState((prevState) => {
+                              return {
+                                    board: tempArr,
+                                    playerTurn: (prevState.playerTurn === 'X') ? 'O' : 'X'
+                              }
+                        });
+                  }
             }
 
             this.renderSquare = (square) => {
@@ -129,7 +133,7 @@ class TicTacToeApp extends Component {
                         </div>
 
                         <div className="win-message">
-                              {(this.state.win) ? `Player ${(this.state.playerTurn === 'X') ? 'O' : 'X'} is the winner!` : ''}
+                              {(this.state.win) ? `Player ${this.state.playerTurn} is the winner!` : ''}
                         </div>
 
                         <div className="tie-message">
