@@ -1,0 +1,22 @@
+.square {
+      height: 50px;
+      width: 50px;
+      padding: 5px;
+      border: 1px solid black;
+      /*border: none;*/
+      margin-top: -2px;
+      background-color: whitesmoke;
+}
+
+.row1, .row2, .row3 {
+      margin-top: 5px;
+}
+
+.row1 {
+      margin-left: 5px;
+}
+
+.board {
+      display: flex;
+      margin: auto;
+}
