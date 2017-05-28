@@ -38,7 +38,8 @@ class TicTacToeApp extends Component {
             		[2,4,6]
             	];
 
-                  winCases.forEach((winCase) => {
+                  for(let i = 0; i < winCases.length; i++) {
+                        const winCase = winCases[i];
                         var char1 = this.state.board[winCase[0]].character;
                         var char2 = this.state.board[winCase[1]].character;
                         var char3 = this.state.board[winCase[2]].character;
@@ -46,13 +47,20 @@ class TicTacToeApp extends Component {
                         if(char1 && char2 && char3) {
                               if(char1 === char2 && char1 === char3 && char2 === char3) {
                                     this.setState({win: true});
+                                    return true;
                               }
                         }
-                  });
+                  }
+                  
+                  return false;
             }
 
             this.checkTie = () => {
-                  this.setState( {tie: this.state.board.every( (square) => square.character !== '')} );
+                  const allSquaresFilled = this.state.board.every( (square) => square.character !== '');
+                  
+                  if(!this.calculateWin() && allSquaresFilled) {
+                        this.setState( {tie: true} );
+                  }
             }
 
             this.handleClick = (key) => {
@@ -67,8 +75,7 @@ class TicTacToeApp extends Component {
                               playerTurn: (prevState.playerTurn === 'X') ? 'O' : 'X'
                         }
                   });
-                  
-                  this.calculateWin();
+
                   this.checkTie();
             }
 
