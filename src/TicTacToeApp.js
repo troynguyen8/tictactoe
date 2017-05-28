@@ -3,6 +3,7 @@ import './TicTacToeApp.css';
 import '../node_modules/@dmsi/wedgekit/wedgekit.css'
 import TicTacToeSquare from './TicTacToeSquare.js';
 import TicTacToeReplayButton from './TicTacToeReplayButton.js';
+import TicTacToeHeader from './TicTacToeHeader.js';
 
 class TicTacToeApp extends Component {
       constructor(props) {
@@ -51,7 +52,7 @@ class TicTacToeApp extends Component {
             }
 
             this.checkTie = () => {
-                  this.setState({tie: this.state.board.every( (square) => square.character !== '')});
+                  this.setState( {tie: this.state.board.every( (square) => square.character !== '')} );
             }
 
             this.handleClick = (key) => {
@@ -126,6 +127,8 @@ class TicTacToeApp extends Component {
       render() {
             return (
                   <div className="game">
+                        <TicTacToeHeader />
+
                         {this.renderRows( this.state.board.map((square) => this.renderSquare(square)) )}
 
                         <div className="player-turn">
